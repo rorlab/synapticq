@@ -1,0 +1,46 @@
+<p>
+<strong>제목:</strong>
+<%= @article.title %>
+</p>
+<p>
+<strong>내용:</strong>
+<%= @article.text %>
+</p>
+<p>
+<strong>SynapticMed내 관련 토픽:</strong>
+<%= link_to @article.topic, "http://www.synapticmedicine.com/index.php/" + @article.topic.tr(" ","_") %>
+</p>
+<strong>해설:</strong>
+<%= @article.explanation %>
+</p>
+
+<hr>
+<h3>코멘트</h3>
+<% @article.comments.each do |comment| %>
+	<p>
+		<strong>작성자:</strong>
+		<%= comment.commenter %>
+	</p>
+	<p>
+		<strong>코멘트:></strong>
+		<%= comment.body %>
+	</p>
+<% end %>
+
+<h3>코멘트를 추가하기: </h3>
+<%= form_for([@article, @article.comments.build]) do |f| %>
+	<p>
+		<%= f.label :commenter %><br>
+		<%= f.text_field :commenter %>
+	</p>
+	<p>
+		<%= f.label :body %><br>
+		<%= f.text_area :body %>
+	</p>
+	<p>
+		<%= f.submit %>
+	</p>
+<% end %>
+
+
+<%= link_to '문제 목록으로 돌아가기', articles_path %>
